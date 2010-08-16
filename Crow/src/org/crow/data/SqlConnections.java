@@ -1,5 +1,8 @@
 package org.crow.data;
-
+/**
+ * @author viksin
+ *
+ */
 public class SqlConnections {
 	
 	public static final String LocalMySQLHost="jdbc:mysql://localhost:3306/fisco";

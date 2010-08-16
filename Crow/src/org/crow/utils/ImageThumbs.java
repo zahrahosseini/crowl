@@ -1,5 +1,8 @@
 package org.crow.utils;
-
+/**
+ * @author viksin
+ *
+ */
 import java.awt.Container;
 import java.awt.Image;
 import java.awt.Graphics2D;

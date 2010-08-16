@@ -1,7 +1,11 @@
 package org.crow.data;
-
+/**
+ * @author viksin
+ *
+ */
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 import java.sql.*;
 import org.crow.classes.*;
 
@@ -59,5 +63,45 @@ public class SelectOps {
         }
 		return dataMap;
 	}
+	public ArrayList<String> getOneColumnData(String selQuery, String colName)
+	{		
+		ArrayList<String> dataList=new ArrayList<String>();
+		Connection conn=null;
+		Statement stmt = null;
+        ResultSet rs = null;
+		try {
+			Class.forName(SqlConnections.MySQLDriver).newInstance();
+			conn = DriverManager.getConnection(SqlConnections.LocalMySQLHost,
+					SqlConnections.Username, SqlConnections.Password);
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(selQuery);
+			while (rs.next()) {
+					dataList.add(rs.getString(colName));
+			}
+				
+		} catch (Exception ex) {
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (Exception se) {
+                }
+            }
+            if (stmt != null) {
 
+                try {
+                    stmt.close();
+                } catch (Exception se) {
+                }
+            }
+            if (conn != null) {
+
+                try {
+                    conn.close();
+                } catch (Exception se) {
+                }
+            }
+        }
+		return dataList;
+	}
 }
