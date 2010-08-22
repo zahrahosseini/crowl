@@ -5,7 +5,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
+
+import org.crow.base.UrlDetective;
 import org.crow.data.*;
+
 /**
  * @author viksin
  *
@@ -26,8 +29,10 @@ public class Test {
 //			e.printStackTrace();
 //		}
 		//fo.deleteFile();
-		SelectOps so = new SelectOps();
-		Map<String,String> k= so.getCategorizedData();
+		//SelectOps so = new SelectOps();
+		//Map<String,String> k= so.getCategorizedData();
+		UrlDetective ud = new UrlDetective();
+		ud.determineUrlType("http://www.vikasing.com/");
 
 	}
 
