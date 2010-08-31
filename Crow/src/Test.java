@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 
 import org.crow.base.UrlDetective;
 import org.crow.data.*;
+import org.crow.base.*;
 
 /**
  * @author viksin
@@ -17,8 +18,9 @@ public class Test {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 //		String imgUrl ="http://www.zeenews.com/Img/2010/5/2/01-AP10050119038.jpg";
 //		ImageThumbs it = new ImageThumbs();
 //		FileOps fo = new FileOps();
@@ -31,8 +33,26 @@ public class Test {
 		//fo.deleteFile();
 		//SelectOps so = new SelectOps();
 		//Map<String,String> k= so.getCategorizedData();
+		BufferedReader reader = new BufferedReader(
+	            new StringReader(
+	                
+	                "User-agent: Mediapartners-Google\n" +
+	                "Disallow: \n" +
+
+	                "User-agent: *\n" +
+	                "Disallow: /search\n" +
+
+	                "Sitemap: http://www.vikasing.com/feeds/posts/default?orderby=updated\n"
+
+	                
+	            ));
+	        //Robotstxt(reader); 
+		Robotstxt rt = new Robotstxt(reader);
+		rt.getAllowedPaths();
+		rt.getDisallowedPaths();
+		rt.isCrawlingAllowed();
 		UrlDetective ud = new UrlDetective();
-		ud.determineUrlType("http://www.vikasing.com/");
+		//ud.determineUrlType("http://www.vikasing.com/");
 
 	}
 
