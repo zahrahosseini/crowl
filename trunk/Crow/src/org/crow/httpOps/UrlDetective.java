@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.crow.base;
+package org.crow.httpOps;
 
 /**
  * @author viksin
@@ -22,6 +22,7 @@ import java.util.StringTokenizer;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.crow.base.GetUrls;
 
 import sun.net.www.protocol.http.HttpURLConnection;
 
@@ -97,9 +98,6 @@ public class UrlDetective {
 		    
 		} catch (Exception e) {
 		    //return true;
-		}
-
-		
-	    }
-	
+		}		
+	    }	
 }
