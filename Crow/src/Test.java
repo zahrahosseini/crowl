@@ -5,9 +5,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
-
-import org.crow.base.UrlDetective;
+import org.crow.classes.*;
 import org.crow.data.*;
+import org.crow.httpOps.Robotstxt;
+import org.crow.httpOps.UrlDetective;
 import org.crow.base.*;
 
 /**
@@ -53,6 +54,9 @@ public class Test {
 		rt.isCrawlingAllowed();
 		UrlDetective ud = new UrlDetective();
 		//ud.determineUrlType("http://www.vikasing.com/");
+		
+		//sFeedUrl fu = new FeedUrl();
+		//fu.setHeaders(headers);
 
 	}
 
