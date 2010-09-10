@@ -9,43 +9,176 @@ import java.util.Map;
  * @author viksin
  *
  */
-public class HttpHeaders {	
-	    private String response;
-	    private Map<String, String> headers;
-
-	    public HttpHeaders(String response, Map<String, String> headers) {
-	        this.response = response;
-	        this.headers = headers;
-	    }
-
-	    public int getCode() {
-	        int start = response.indexOf(' ');
-	        int end = response.indexOf(' ', start + 1);
-
-	        return Integer.parseInt(response.substring(start + 1, end));
-	    }
-	    public String getTransferEncoding() {
-	        return headers.get("Transfer-Encoding".toUpperCase());
-	    }
-
-	    public String getContentLength() {
-	        return headers.get("Content-Length".toUpperCase());
-	    }
-
-	    public String getLocation() {
-	        return headers.get("Location".toUpperCase());
-	    }
-
-	    public String getContentType() {
-	        String contentType = headers.get("Content-Type".toUpperCase());
-
-	        int delimIndex = contentType.indexOf(';');
-	        if(delimIndex > -1) {
-	            contentType = contentType.substring(0, delimIndex);
-	        }
-
-	        return contentType;
-	    }
+public class HttpHeaders {
+	private int responseCode;
+	private String contentType;
+	private String httpVersion;
+	private String etag;
+	private String date;
+	private String transferEncoding;
+	private String expires;
+	private String xXssProtection;
+	private String lastModified;
+	private String charset;
+	private String server;
+	private String cacheControl;
+	private String xContentTypeOptions;
+	/**
+	 * @param responseCode the responseCode to set
+	 */
+	public void setResponseCode(int responseCode) {
+		this.responseCode = responseCode;
 	}
+	/**
+	 * @return the responseCode
+	 */
+	public int getResponseCode() {
+		return responseCode;
+	}
+	/**
+	 * @param contentType the contentType to set
+	 */
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+	/**
+	 * @return the contentType
+	 */
+	public String getContentType() {
+		return contentType;
+	}
+	/**
+	 * @param httpVersion the httpVersion to set
+	 */
+	public void setHttpVersion(String httpVersion) {
+		this.httpVersion = httpVersion;
+	}
+	/**
+	 * @return the httpVersion
+	 */
+	public String getHttpVersion() {
+		return httpVersion;
+	}
+	/**
+	 * @param etag the etag to set
+	 */
+	public void setEtag(String etag) {
+		this.etag = etag;
+	}
+	/**
+	 * @return the etag
+	 */
+	public String getEtag() {
+		return etag;
+	}
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(String date) {
+		this.date = date;
+	}
+	/**
+	 * @return the date
+	 */
+	public String getDate() {
+		return date;
+	}
+	/**
+	 * @param transferEncoding the transferEncoding to set
+	 */
+	public void setTransferEncoding(String transferEncoding) {
+		this.transferEncoding = transferEncoding;
+	}
+	/**
+	 * @return the transferEncoding
+	 */
+	public String getTransferEncoding() {
+		return transferEncoding;
+	}
+	/**
+	 * @param expires the expires to set
+	 */
+	public void setExpires(String expires) {
+		this.expires = expires;
+	}
+	/**
+	 * @return the expires
+	 */
+	public String getExpires() {
+		return expires;
+	}
+	/**
+	 * @param xXssProtection the xXssProtection to set
+	 */
+	public void setxXssProtection(String xXssProtection) {
+		this.xXssProtection = xXssProtection;
+	}
+	/**
+	 * @return the xXssProtection
+	 */
+	public String getxXssProtection() {
+		return xXssProtection;
+	}
+	/**
+	 * @param string the lastModified to set
+	 */
+	public void setLastModified(String lastModified) {
+		this.lastModified = lastModified;
+	}
+	/**
+	 * @return the lastModified
+	 */
+	public String getLastModified() {
+		return lastModified;
+	}
+	/**
+	 * @param charset the charset to set
+	 */
+	public void setCharset(String charset) {
+		this.charset = charset;
+	}
+	/**
+	 * @return the charset
+	 */
+	public String getCharset() {
+		return charset;
+	}
+	/**
+	 * @param server the server to set
+	 */
+	public void setServer(String server) {
+		this.server = server;
+	}
+	/**
+	 * @return the server
+	 */
+	public String getServer() {
+		return server;
+	}
+	/**
+	 * @param cacheControl the cacheControl to set
+	 */
+	public void setCacheControl(String cacheControl) {
+		this.cacheControl = cacheControl;
+	}
+	/**
+	 * @return the cacheControl
+	 */
+	public String getCacheControl() {
+		return cacheControl;
+	}
+	/**
+	 * @param xContentTypeOptions the xContentTypeOptions to set
+	 */
+	public void setxContentTypeOptions(String xContentTypeOptions) {
+		this.xContentTypeOptions = xContentTypeOptions;
+	}
+	/**
+	 * @return the xContentTypeOptions
+	 */
+	public String getxContentTypeOptions() {
+		return xContentTypeOptions;
+	}
+}
 
 
