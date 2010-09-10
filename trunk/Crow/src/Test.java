@@ -48,12 +48,12 @@ public class Test {
 	                
 	            ));
 	        //Robotstxt(reader); 
-		Robotstxt rt = new Robotstxt(reader);
-		rt.getAllowedPaths();
-		rt.getDisallowedPaths();
-		rt.isCrawlingAllowed();
+		//Robotstxt rt = new Robotstxt(reader);
+		//rt.getAllowedPaths();
+		//rt.getDisallowedPaths();
+		//rt.isCrawlingAllowed();
 		UrlDetective ud = new UrlDetective();
-		//ud.determineUrlType("http://www.vikasing.com/");
+		ud.determineUrlType("http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&num=3&output=rss");
 		
 		//sFeedUrl fu = new FeedUrl();
 		//fu.setHeaders(headers);

@@ -15,6 +15,7 @@ public class Feed {
 	private String feedDesc;
 	private String feedAuthor;
 	private String lastModDateOnServer;
+	private String feedImageUrl;
 	/**
 	 * @param feedTitle the feedTitle to set
 	 */
@@ -134,6 +135,18 @@ public class Feed {
 	 */
 	public String getLastModDateOnServer() {
 		return lastModDateOnServer;
+	}
+	/**
+	 * @param feedImageUrl the feedImageUrl to set
+	 */
+	public void setFeedImageUrl(String feedImageUrl) {
+		this.feedImageUrl = feedImageUrl;
+	}
+	/**
+	 * @return the feedImageUrl
+	 */
+	public String getFeedImageUrl() {
+		return feedImageUrl;
 	}
 
 }

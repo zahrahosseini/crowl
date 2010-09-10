@@ -28,11 +28,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Utility class for parsing and representing 'robots.txt' format 
- * directives, into a list of named user-agents and map from user-agents 
- * to RobotsDirectives. 
- */
 /**Further modified for Crow
  * viksin
  */
