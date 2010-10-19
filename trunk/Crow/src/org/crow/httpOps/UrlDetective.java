@@ -14,7 +14,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Map;
@@ -26,6 +25,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.crow.base.GetUrls;
 import org.crow.classes.FeedUrl;
 import org.crow.classes.UrlBase;
+import org.crow.enums.UrlType;
 
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
@@ -35,47 +35,85 @@ import com.sun.syndication.io.XmlReader;
 
 public class UrlDetective {
 	Thread searchThread;
-    public static final String DISALLOW = "Disallow:";
-    private UrlBase urlBase=new UrlBase();
-    private FeedUrl feedUrl = new FeedUrl();
-	public void determineUrlType(String url)
-	{
+	public static final String DISALLOW = "Disallow:";
+	private UrlBase urlBase = new UrlBase();
+	private FeedUrl feedUrl = new FeedUrl();
+
+	public void determineUrlType(String url) {
+		String contentType = "";
 		ArrayList<String> urls = new ArrayList<String>();
-		HttpHeadersAnalysis httpHeaderAnalysis= new HttpHeadersAnalysis();
+		HttpHeadersAnalysis httpHeaderAnalysis = new HttpHeadersAnalysis();
 		GetUrls gUrls = new GetUrls();
-		urls=gUrls.getAllUrls();
-		urlBase.setUrlAddress(url); 
-		//next check if the url is syntactically correct
-		//if it is a relative url try to get the domain for the same and then analyze
-		//for(String url:urls)
-		//{
-			try {
-				URL passedUrl = new URL(url);
-				boolean alreadyConnected=false;
-				//DefaultHttpClient httpClient = new DefaultHttpClient();
-				//HttpGet pageGet = new HttpGet(feedUrl.toURI());
-				//HttpResponse response = httpClient.execute(pageGet);
-				analyzeRobotsDotText(passedUrl);				
-				urlBase.setHeaders(httpHeaderAnalysis.getHttpHeaders(passedUrl));
-				//SyndFeed feed = input.build(new XmlReader(response.getEntity().getContent()));
-				//response.getStatusLine();SyndFeedInput input = new SyndFeedInput();
-			} catch (Exception e) {				
-				e.printStackTrace();
+		urls = gUrls.getAllUrls();
+		urlBase.setUrlAddress(url);
+		UrlType utype=null;
+		// next check if the url is syntactically correct
+		// if it is a relative url try to get the domain for the same and then
+		// analyze
+		// for(String url:urls)
+		// {
+		try {
+			URL passedUrl = new URL(url);
+			boolean alreadyConnected = false;
+			boolean isCrawlingAllowed = analyzeRobotsDotText(passedUrl);
+			urlBase.setHeaders(httpHeaderAnalysis.getHttpHeaders(passedUrl));
+			contentType = urlBase.getHeaders().getContentType();
+			if (contentType.contains("html")) {
+				utype = UrlType.HTML;
+			} else if (contentType.contains("xml")) {
+				try {
+					SyndFeedInput input = new SyndFeedInput();
+					SyndFeed feed = input.build(new XmlReader(passedUrl));
+					String feedtype = feed.getFeedType();
+					if (feedtype.contains("rss")) {
+						utype = UrlType.RSS;
+					}
+					if (feedtype.contains("atom")) {
+						utype = UrlType.ATOM;
+					}
+				} catch (Exception e) {
+					utype = UrlType.NO_SYND_XML;
+					e.printStackTrace();
+				}
+			} else {
+				// TODO for images, plain text, different doc types etc.
 			}
-			
-		//}
+			if (isCrawlingAllowed && utype!=null) {
+				if(utype.equals(UrlType.HTML))
+				{
+					// TODO send to HrefGrabber 
+				}
+				else if(utype.equals(UrlType.RSS)|| utype.equals(UrlType.ATOM))
+				{
+					// TODO send to FeedCrow
+				}
+				else {
+					// TODO store the url in JunkLinks table
+				}
+			} else {
+				// TODO put the url in future vault.
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// }
 	}
 
-	private void analyzeRobotsDotText(URL url) {
+	private boolean analyzeRobotsDotText(URL url) {
 		String strHost = url.getHost();
 		String strRobot = "http://" + strHost + "/robots.txt";
+		boolean isCrawlingAllowed = false;
 		URL urlRobot;
 		try {
 			urlRobot = new URL(strRobot);
 			InputStream urlRobotStream = urlRobot.openStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					urlRobotStream));
+			Robotstxt robotstxt = new Robotstxt(br);
+			isCrawlingAllowed = robotstxt.isCrawlingAllowed();
 		} catch (Exception e) {
 		}
-	}	
+		return isCrawlingAllowed;
+	}
 }

@@ -39,4 +39,15 @@ public class HttpHeadersAnalysis {
 		return httpHeaders;
 	}
 
+	public void setHttpHeaders(URL url)
+	{
+		URLConnection conn;
+		try {
+			conn = url.openConnection();
+			conn.setRequestProperty("connection", "Keep-Alive");
+			conn.setRequestProperty("user-agent", "Crowl");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
