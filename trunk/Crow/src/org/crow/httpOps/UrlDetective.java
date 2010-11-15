@@ -85,7 +85,7 @@ public class UrlDetective {
 				}
 				else if(utype.equals(UrlType.RSS)|| utype.equals(UrlType.ATOM))
 				{
-					// TODO send to FeedCrow
+					// TODO send to FeedStore
 				}
 				else {
 					// TODO store the url in JunkLinks table
