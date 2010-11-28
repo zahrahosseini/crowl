@@ -9,6 +9,7 @@ package org.crow.utils;
  */
 public class Base62Converter {
 	private final int LENGTH_OF_URL_CODE=6;
+	private static final String baseDigits = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";  
 	public String convertTo62Base(long toBeConverted)
 	{
 		String[] elements = {
@@ -19,19 +20,20 @@ public class Base62Converter {
 				"Y","Z"
 				};
 		String convertedString="";
-		if(toBeConverted<63 && toBeConverted>0)
+		int numOfDiffChars= elements.length;
+		if(toBeConverted<numOfDiffChars+1 && toBeConverted>0)
 		{
 			convertedString=elements[(int) (toBeConverted-1)];
 		}
-		else if(toBeConverted>62)
+		else if(toBeConverted>numOfDiffChars)
 		{
 			long mod = 0;
 			long multiplier = 0;
 			boolean determinedTheLength=false;
 			for(int j=LENGTH_OF_URL_CODE;j>=0;j--)
 			{
-				multiplier=(long) (toBeConverted/Math.pow(62,j));
-				if(multiplier>0 && toBeConverted>=62)
+				multiplier=(long) (toBeConverted/Math.pow(numOfDiffChars,j));
+				if(multiplier>0 && toBeConverted>=numOfDiffChars)
 				{
 					convertedString+=elements[(int) multiplier];
 					determinedTheLength=true;
@@ -40,18 +42,33 @@ public class Base62Converter {
 				{
 					convertedString+=elements[0];
 				}
-				else if(toBeConverted<62)
+				else if(toBeConverted<numOfDiffChars)
 				{
 					convertedString+=elements[(int) mod];
 				}
 				
-				mod=(long) (toBeConverted%Math.pow(62,j));
+				mod=(long) (toBeConverted%Math.pow(numOfDiffChars,j));
 				toBeConverted=mod;				
 			}
 			
 		}
 		System.out.print(convertedString);
 		return convertedString;
+	}
+	
+	public String converter ( int base, long decimalNumber)
+	{
+		
+		 String tempVal = decimalNumber == 0 ? "0" : "";
+	        long mod = 0;
+
+	        while( decimalNumber != 0 ) {
+	            mod = decimalNumber % base;
+	            tempVal = baseDigits.substring( (int)mod, (int)mod + 1 ) + tempVal;
+	            decimalNumber = decimalNumber / base;
+	        }
+	        System.out.print(tempVal);
+	        return tempVal;
 	}
 
 }

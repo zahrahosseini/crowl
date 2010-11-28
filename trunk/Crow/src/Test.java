@@ -65,7 +65,11 @@ public class Test {
 		//mongodbTest();
 		//sFeedUrl fu = new FeedUrl();
 		//fu.setHeaders(headers);
-
+		//Base62Converter bc = new Base62Converter();
+		//bc.convertTo62Base(4545454545l);
+		//bc.converter(62, 4545454545l);
+		FeedParser fp = new FeedParser();
+		fp.parser("http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=t&output=rss");
 	}
 private static void mongodbTest()
 {
