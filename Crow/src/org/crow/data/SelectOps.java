@@ -11,9 +11,9 @@ import org.crow.classes.*;
 
 public class SelectOps {
 	
-	public Map<String,Feed> multipleSelect(String query)
+	public Map<String,FeedEntry> multipleSelect(String query)
 	{
-		Map<String,Feed> dataMap= new HashMap<String, Feed>();
+		Map<String,FeedEntry> dataMap= new HashMap<String, FeedEntry>();
 		return dataMap;
 	}
 	

@@ -1,5 +1,7 @@
 package org.crow.classes;
 
+import com.sun.syndication.feed.synd.SyndFeed;
+
 public class FeedUrl extends UrlBase{
 
 	private String syndType;
@@ -7,6 +9,7 @@ public class FeedUrl extends UrlBase{
 	private String lastVisit;
 	private String nextVisit;
 	private String changeRate;
+	private SyndFeed feedInfo;
 	/**
 	 * @param syndType the syndType to set
 	 */
@@ -66,6 +69,18 @@ public class FeedUrl extends UrlBase{
 	 */
 	public String getChangeRate() {
 		return changeRate;
+	}
+	/**
+	 * @param feedInfo the feedInfo to set
+	 */
+	public void setFeedInfo(SyndFeed feedInfo) {
+		this.feedInfo = feedInfo;
+	}
+	/**
+	 * @return the feedInfo
+	 */
+	public SyndFeed getFeedInfo() {
+		return feedInfo;
 	}
 	
 

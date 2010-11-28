@@ -7,7 +7,7 @@ package org.crow.data;
  * @author viksin
  *
  */
-public class InsertIntoMongoDb implements InsertOps {
+public class InsertAndUpdateMySQL  implements InsertAndUpdateOpsInterface {
 
 	@Override
 	public boolean multiInsert() {
@@ -20,11 +20,11 @@ public class InsertIntoMongoDb implements InsertOps {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	/**********************
-	 * Following methods are
-	 * for inserting data in
-	 * MongoDB
-	 **********************/
-	
 
+	@Override
+	public boolean updateDB() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 }
