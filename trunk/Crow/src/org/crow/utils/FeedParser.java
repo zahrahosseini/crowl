@@ -14,7 +14,7 @@ import java.util.List;
 
 import org.crow.classes.FeedEntry;
 import org.crow.classes.HttpHeaders;
-import org.crow.data.DataStructureForMongoDb;
+import org.crow.data.*;
 import org.crow.httpOps.HttpHeadersAnalysis;
 
 import com.sun.syndication.feed.synd.SyndEntry;
@@ -30,9 +30,9 @@ public class FeedParser {
 		SyndFeedInput input = new SyndFeedInput();
 		HtmlUtils htmlUtils = new HtmlUtils();
 		HttpHeadersAnalysis hha = new HttpHeadersAnalysis();
-		DataStructureForMongoDb dsfmd = new DataStructureForMongoDb();
+		InsertAndUpdateOpsInterface dsfmd = new InsertAndUpdateMongoDb();
 		GenUtils genUtils = new GenUtils();
-		List<FeedEntry> feedList = Collections.synchronizedList(new ArrayList<FeedEntry>());// ArrayList<FeedEntry>();
+		List<FeedEntry> feedList = new ArrayList<FeedEntry>();// ;Collections.synchronizedList(new ArrayList<FeedEntry>());
 		try {
 			URL feedUrl = new URL(url);
 			SyndFeed feed = input.build(new XmlReader(feedUrl));
@@ -47,7 +47,7 @@ public class FeedParser {
 				fe.setFeedGetDateTime(genUtils.getCurrentDateTime("yyyy-MM-dd HH:mm:ss"));
 				feedList.add(fe);
 			}
-			dsfmd.createDSFromList(feedList);
+			dsfmd.insertFeeds(feedList);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println("ERROR: " + ex.getMessage());
