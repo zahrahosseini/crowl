@@ -2,7 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_20"/>
-	<classpathentry kind="lib" path="F:/ecpro/libs/rome-1.0.jar"/>
+	<classpathentry kind="lib" path="F:/ecpro/libs/rome-1.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/F:/ecpro/libs/rome-1.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="F:/ecpro/libs/mysql-connector-java-5.1.12-bin.jar"/>
 	<classpathentry kind="lib" path="F:/ecpro/libs/jdom.jar"/>
 	<classpathentry kind="lib" path="F:/ecpro/libs/rome-1.0-javadoc.jar"/>
