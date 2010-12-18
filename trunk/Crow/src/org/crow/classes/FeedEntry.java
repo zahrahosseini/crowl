@@ -15,6 +15,8 @@ public class FeedEntry {
 	private SyndEntry feedEntry;
 	private String noHtmlContent;
 	private String feedGetDateTime;
+	private String sourceTitle;
+	private String sourceLink;
 	/**
 	 * @param feedHashid the feedHashid to set
 	 */
@@ -86,6 +88,30 @@ public class FeedEntry {
 	 */
 	public String getFeedGetDateTime() {
 		return feedGetDateTime;
+	}
+	/**
+	 * @param sourceTitle the sourceTitle to set
+	 */
+	public void setSourceTitle(String sourceTitle) {
+		this.sourceTitle = sourceTitle;
+	}
+	/**
+	 * @return the sourceTitle
+	 */
+	public String getSourceTitle() {
+		return sourceTitle;
+	}
+	/**
+	 * @param sourceLink the sourceLink to set
+	 */
+	public void setSourceLink(String sourceLink) {
+		this.sourceLink = sourceLink;
+	}
+	/**
+	 * @return the sourceLink
+	 */
+	public String getSourceLink() {
+		return sourceLink;
 	}
 
 }
