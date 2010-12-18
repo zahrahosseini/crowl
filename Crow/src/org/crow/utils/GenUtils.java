@@ -3,6 +3,8 @@
  */
 package org.crow.utils;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -18,5 +20,30 @@ public class GenUtils {
 	    SimpleDateFormat sdf = new SimpleDateFormat(format);
 	    return sdf.format(cal.getTime());
 	}
-
+	
+	public String generateSHAHashId(String str)
+	{
+		String hashId ="";
+		try {
+			MessageDigest mdigest = MessageDigest.getInstance("SHA1");
+			mdigest.update(str.getBytes());
+			byte[] output = mdigest.digest();
+			hashId=bytesToHex(output);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
+		return hashId;
+	}
+	
+	public static String bytesToHex(byte[] b) {
+	      char hexDigit[] = {'0', '1', '2', '3', '4', '5', '6', '7','8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+	      StringBuffer buffer = new StringBuffer();
+	      for (int j=0; j<b.length; j++) {
+	    	  buffer.append(hexDigit[(b[j] >> 4) & 0x0f]);
+	    	  buffer.append(hexDigit[b[j] & 0x0f]);
+	      }
+	      return buffer.toString();
+	   }
+	
 }

@@ -42,7 +42,7 @@ public class Test {
 		//fo.deleteFile();
 		//SelectOps so = new SelectOps();
 		//Map<String,String> k= so.getCategorizedData();
-		BufferedReader reader = new BufferedReader(
+		/*BufferedReader reader = new BufferedReader(
 	            new StringReader(
 	                
 	                "User-agent: Mediapartners-Google\n" +
@@ -54,7 +54,7 @@ public class Test {
 	                "Sitemap: http://www.vikasing.com/feeds/posts/default?orderby=updated\n"
 
 	                
-	            ));
+	            ));*/
 	        //Robotstxt(reader); 
 		//Robotstxt rt = new Robotstxt(reader);
 		//rt.getAllowedPaths();
@@ -69,12 +69,16 @@ public class Test {
 		//bc.convertTo62Base(4545454545l);
 		//bc.converter(62, 4545454545l);
 		FeedParser fp = new FeedParser();
-		fp.parser("http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=t&output=rss");
+		fp.parser("http://ssingularityy.blogspot.com/feeds/posts/default");
+		//fp.parser("http://www.engadget.com/rss.xml");
+		//GenUtils gu = new GenUtils();
+		//System.out.println(gu.generateSHAHashId("vikash"));
+		
 	}
 private static void mongodbTest()
 {
 	try {
-		Mongo m = new Mongo("192.168.1.4",27017);
+		Mongo m = new Mongo("192.168.1.3",27017);
 		DB db = m.getDB( "test" );
 		Set<String> colls = db.getCollectionNames();
 
@@ -95,7 +99,7 @@ private static void mongodbTest()
 
         doc.put("info", info);
 
-        coll.insert(doc);
+        coll.insert(doc);/**/
         DBCursor cur = coll.find();
 
         while(cur.hasNext()) {
