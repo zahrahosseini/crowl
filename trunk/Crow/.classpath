@@ -23,5 +23,6 @@
 	<classpathentry kind="lib" path="F:/ecpro/libs/httpclient-4.0.1.jar"/>
 	<classpathentry kind="lib" path="F:/ecpro/libs/httpmime-4.0.1.jar"/>
 	<classpathentry kind="lib" path="F:/ecpro/libs/mongo-2.3.jar"/>
+	<classpathentry kind="lib" path="F:/ecpro/libs/stanford-ner-2009-01-16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

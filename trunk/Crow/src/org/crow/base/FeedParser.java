@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.crow.utils;
+package org.crow.base;
 
 /**
  * @author viksin
@@ -17,6 +17,8 @@ import org.crow.classes.FeedEntry;
 import org.crow.classes.HttpHeaders;
 import org.crow.data.*;
 import org.crow.httpOps.HttpHeadersAnalysis;
+import org.crow.utils.GenUtils;
+import org.crow.utils.HtmlUtils;
 
 import com.sun.syndication.feed.synd.SyndCategory;
 import com.sun.syndication.feed.synd.SyndContent;
