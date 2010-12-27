@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.sql.*;
 import org.crow.classes.*;
 
-public class SelectOps {
+public class MySQLSelectOps {
 	
 	public Map<String,FeedEntry> multipleSelect(String query)
 	{

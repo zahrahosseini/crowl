@@ -22,9 +22,9 @@ import java.util.StringTokenizer;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.crow.base.GetUrls;
 import org.crow.classes.FeedUrl;
 import org.crow.classes.UrlBase;
+import org.crow.data.DBUtils;
 import org.crow.enums.UrlType;
 
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -43,8 +43,8 @@ public class UrlDetective {
 		String contentType = "";
 		ArrayList<String> urls = new ArrayList<String>();
 		HttpHeadersAnalysis httpHeaderAnalysis = new HttpHeadersAnalysis();
-		GetUrls gUrls = new GetUrls();
-		urls = gUrls.getAllUrls();
+		DBUtils gUrls = new DBUtils();
+		//urls = gUrls.getAllUrls();
 		urlBase.setUrlAddress(url);
 		UrlType utype=null;
 		// next check if the url is syntactically correct
