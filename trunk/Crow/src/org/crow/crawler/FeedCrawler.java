@@ -4,9 +4,13 @@
 package org.crow.crawler;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
+import org.crow.base.FeedParser;
+import org.crow.classes.FeedEntry;
 import org.crow.data.DBUtils;
+import org.crow.data.InsertAndUpdateMongoDb;
 import org.crow.data.Query;
 
 /**
@@ -28,6 +32,7 @@ public class FeedCrawler implements ICrawler {
 	
 	private void fingCrawler()
 	{
+		//TODO logic of db call should be moved to starting point (e.g. main method)
 		String dataColumn="feedurl";
 		String sqlQuery="select "+dataColumn+" from fingfeedurls";
 		Query query = new Query();
@@ -37,9 +42,16 @@ public class FeedCrawler implements ICrawler {
 		ArrayList<String> feedUrls =dbu.getAllUrls(query);
 		Crawler crawler = new Crawler();
 		crawler.setUrls(feedUrls);
-		for(String s : crawler.getUrls())
-		{
-			System.out.println(s);
+		FeedParser feedParser = new FeedParser();
+		InsertAndUpdateMongoDb insert = new InsertAndUpdateMongoDb();
+		boolean success=false;
+		while(true){
+			for(String s : crawler.getUrls())
+			{
+				List<FeedEntry> feedList = feedParser.parser(s);
+				success=insert.insertFeeds(feedList, "feeds", "fing");
+				//System.out.println(success);
+			}
 		}
 	}
 

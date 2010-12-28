@@ -65,11 +65,12 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean insertFeeds(List<FeedEntry> feedList) {
+	public boolean insertFeeds(List<FeedEntry> feedList,String dbName,String collection) {
 		try {
+			//TODO handle the multiple unnecessary connections
 			Mongo m = new Mongo(Constants.MongoDBServer,Constants.MongoDBServerPort);
-			DB db = m.getDB("test");
-			DBCollection coll = db.getCollection("tfeeds");
+			DB db = m.getDB(dbName);
+			DBCollection coll = db.getCollection(collection);
 			
 
 			for (FeedEntry fe : feedList) {
@@ -136,16 +137,24 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 				
 				//System.out.println(coll.genIndexName(feed));
 			}
-			DBCursor cur = coll.find();
-			while (cur.hasNext()) {
-				System.out.println(cur.next());
-			}
-			System.out.println(coll.getCount());
+			//DBCursor cur = coll.find();
+			//while (cur.hasNext()) {
+			//	System.out.println(cur.next());
+			//}
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.crow.data.InsertAndUpdateOpsInterface#insertFeeds(java.util.List)
+	 */
+	@Override
+	public boolean insertFeeds(List<FeedEntry> feedList) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 	

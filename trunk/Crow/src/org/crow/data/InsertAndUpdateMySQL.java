@@ -41,5 +41,15 @@ public class InsertAndUpdateMySQL  implements InsertAndUpdateOpsInterface {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	/* (non-Javadoc)
+	 * @see org.crow.data.InsertAndUpdateOpsInterface#insertFeeds(java.util.List, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public boolean insertFeeds(List<FeedEntry> feedList, String db,
+			String collection) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
