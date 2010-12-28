@@ -76,7 +76,7 @@ public class FeedParser {
 				fe.setFeedHashid(genUtils.generateSHAHashId(se.getLink()));
 				feedList.add(fe);
 			}
-			dsfmd.insertFeeds(feedList);
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println("ERROR: " + ex.getMessage());

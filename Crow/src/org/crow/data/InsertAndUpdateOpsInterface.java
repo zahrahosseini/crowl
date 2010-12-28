@@ -17,4 +17,11 @@ public interface InsertAndUpdateOpsInterface {
 	public boolean multiInsert();
 	public boolean updateDB();
 	public boolean insertFeeds(List<FeedEntry> feedList);
+	/**
+	 * @param feedList
+	 * @param db
+	 * @param collection
+	 * @return
+	 */
+	boolean insertFeeds(List<FeedEntry> feedList, String db, String collection);
 }
