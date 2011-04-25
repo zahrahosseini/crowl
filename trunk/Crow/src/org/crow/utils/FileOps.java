@@ -5,8 +5,11 @@ package org.crow.utils;
  */
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,10 +34,26 @@ public class FileOps {
 			System.err.println(e.toString());
 		}
 	}
-	
-	public void deleteFile(String fileName) {
-		String dir = Constants.TempImageDir;
-	    File f = new File(fileName);
+	public String readFile(String fileName,String dir){	
+	    File file = new File(dir+fileName);
+	    int ch;
+	    StringBuffer strBuff = new StringBuffer("");
+	    FileInputStream fin = null;
+	     
+		try {
+			 fin = new FileInputStream(file);
+			 while( (ch = fin.read()) != -1)
+				 strBuff.append((char)ch);
+			 fin.close();
+			 System.out.println("Reading from cache"+strBuff.toString());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return strBuff.toString();
+	}
+	public void deleteFile(String fileName,String dir) {
+		//String dir = Constants.TempImageDir;
+	    File f = new File(dir+fileName);
 	    if (!f.exists())
 	      throw new IllegalArgumentException(
 	          "Delete: no such file or directory: " + fileName);

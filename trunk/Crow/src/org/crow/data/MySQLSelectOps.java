@@ -63,7 +63,7 @@ public class MySQLSelectOps {
         }
 		return dataMap;
 	}
-	public ArrayList<String> getOneColumnData(String selQuery, String colName)
+	protected ArrayList<String> getOneColumnData(String selQuery, String colName)
 	{		
 		ArrayList<String> dataList=new ArrayList<String>();
 		Connection conn=null;

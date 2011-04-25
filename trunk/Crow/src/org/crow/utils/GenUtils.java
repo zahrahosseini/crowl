@@ -45,5 +45,8 @@ public class GenUtils {
 	      }
 	      return buffer.toString();
 	   }
-	
+	public void serializeObject(Object obj)
+	{
+	    
+	}
 }

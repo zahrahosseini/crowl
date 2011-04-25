@@ -22,6 +22,8 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
+import com.mongodb.WriteResult;
+import com.sun.corba.se.spi.ior.Writeable;
 import com.sun.syndication.feed.module.DCModule;
 import com.sun.syndication.feed.synd.SyndCategory;
 import com.sun.syndication.feed.synd.SyndContent;
@@ -65,10 +67,10 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean insertFeeds(List<FeedEntry> feedList,String dbName,String collection) {
+	public boolean insertFeeds(List<FeedEntry> feedList,String dbName,String collection, Mongo m) {
 		try {
 			//TODO handle the multiple unnecessary connections
-			Mongo m = new Mongo(Constants.MongoDBServer,Constants.MongoDBServerPort);
+			//Mongo m = new Mongo(Constants.MongoDBServer,Constants.MongoDBServerPort);
 			DB db = m.getDB(dbName);
 			DBCollection coll = db.getCollection(collection);
 			
@@ -128,14 +130,16 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 					}
 				}
 				feedData.put("categories", categories);
-				feedData.put("updatedate", entry.getUpdatedDate());
+				if(entry.getUpdatedDate()!=null){
+				feedData.put("updatedate", entry.getUpdatedDate().toString());
+				}
 				feedData.put("nohtmlcontent", fe.getNoHtmlContent());
 				feedData.put("imageurl", fe.getFeedImageUrl());
 				feed.put("feeddata", feedData);
-				coll.insert(feed);
+				WriteResult insertResult= coll.insert(feed);
 				//DBCursor cur = coll.find();
 				
-				//System.out.println(coll.genIndexName(feed));
+				System.out.println(insertResult.toString());
 			}
 			//DBCursor cur = coll.find();
 			//while (cur.hasNext()) {
@@ -154,6 +158,16 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 	 */
 	@Override
 	public boolean insertFeeds(List<FeedEntry> feedList) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.crow.data.InsertAndUpdateOpsInterface#insertFeeds(java.util.List, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public boolean insertFeeds(List<FeedEntry> feedList, String db,
+			String collection) {
 		// TODO Auto-generated method stub
 		return false;
 	}

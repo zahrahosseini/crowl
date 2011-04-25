@@ -16,6 +16,9 @@ public class Query {
 	private String selectColumn;
 	private String updateColumn;
 	private String whereClause;
+	
+	private String mongoDB;
+	private String mongoCollection;
 	/**
 	 * @param type set type as "select","update","delete","insert"
 	 */
@@ -99,5 +102,29 @@ public class Query {
 	 */
 	public String getSelectColumn() {
 		return selectColumn;
+	}
+	/**
+	 * @param mongoDB the mongoDB to set
+	 */
+	public void setMongoDB(String mongoDB) {
+		this.mongoDB = mongoDB;
+	}
+	/**
+	 * @return the mongoDB
+	 */
+	public String getMongoDB() {
+		return mongoDB;
+	}
+	/**
+	 * @param mongoCollection the mongoCollection to set
+	 */
+	public void setMongoCollection(String mongoCollection) {
+		this.mongoCollection = mongoCollection;
+	}
+	/**
+	 * @return the mongoCollection
+	 */
+	public String getMongoCollection() {
+		return mongoCollection;
 	}
 }

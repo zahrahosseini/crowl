@@ -81,9 +81,38 @@ public class RemoveStopWords {
 		}
 		//System.out.println(text.indexOf(".")+" "+text.length());
 		text=text.replace(".", " ");
-		System.out.println(text);
+		//System.out.println(text);
 		return text;
 		
 	}
 
+	public String replaceStopwords(String text, String replaceWith, String[] swords)
+	{
+		RemoveStopWords rsw = new RemoveStopWords();
+		rsw.setStopWords(swords);
+		//text = text.toLowerCase();
+		for(String s:rsw.getStopWords())
+		{
+			if(text.contains(s))
+			{
+				//System.out.println(s);
+				text= text.replaceAll(s, " "+replaceWith+" ");
+								
+			}
+			
+		}
+		//System.out.println(text.indexOf(".")+" "+text.length());
+		//text=text.replace(".", " ");
+		//System.out.println(text);
+		return text;
+		
+	}
+	
+	public String cleanSpecialChars(String s)
+	{
+	    String pattern = "[^a-zA-Z0-9 ]";            
+            s= s.replaceAll(pattern, " ");
+            s= s.replaceAll("^ +| +$|( )+", "$1");
+	    return s;
+	}
 }

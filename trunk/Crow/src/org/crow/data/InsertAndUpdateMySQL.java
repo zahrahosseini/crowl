@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.crow.classes.FeedEntry;
 
+import com.mongodb.Mongo;
 import com.sun.syndication.feed.synd.SyndFeed;
 
 /**
@@ -48,6 +49,16 @@ public class InsertAndUpdateMySQL  implements InsertAndUpdateOpsInterface {
 	@Override
 	public boolean insertFeeds(List<FeedEntry> feedList, String db,
 			String collection) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.crow.data.InsertAndUpdateOpsInterface#insertFeeds(java.util.List, java.lang.String, java.lang.String, com.mongodb.Mongo)
+	 */
+	@Override
+	public boolean insertFeeds(List<FeedEntry> feedList, String dbName,
+			String collection, Mongo m) {
 		// TODO Auto-generated method stub
 		return false;
 	}
