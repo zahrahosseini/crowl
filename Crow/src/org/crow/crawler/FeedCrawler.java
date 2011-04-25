@@ -3,6 +3,7 @@
  */
 package org.crow.crawler;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,10 @@ import org.crow.classes.FeedEntry;
 import org.crow.data.DBUtils;
 import org.crow.data.InsertAndUpdateMongoDb;
 import org.crow.data.Query;
+import org.crow.utils.Constants;
+
+import com.mongodb.Mongo;
+import com.mongodb.MongoException;
 
 /**
  * @author viksin
@@ -45,11 +50,17 @@ public class FeedCrawler implements ICrawler {
 		FeedParser feedParser = new FeedParser();
 		InsertAndUpdateMongoDb insert = new InsertAndUpdateMongoDb();
 		boolean success=false;
+		Mongo m = null;
+		try {
+			m = new Mongo(Constants.MongoDBServer,Constants.MongoDBServerPort);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		while(true){
 			for(String s : crawler.getUrls())
 			{
 				List<FeedEntry> feedList = feedParser.parser(s);
-				success=insert.insertFeeds(feedList, "feeds", "fing");
+				success=insert.insertFeeds(feedList, "feeds", "fing",m);
 				//System.out.println(success);
 			}
 		}

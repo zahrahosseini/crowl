@@ -8,7 +8,9 @@ package org.crow.base;
  * This class uses ROME library to parse the feeds.	
  */
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +29,10 @@ import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.feed.synd.SyndLink;
+import com.sun.syndication.fetcher.FeedFetcher;
+import com.sun.syndication.fetcher.impl.FeedFetcherCache;
+import com.sun.syndication.fetcher.impl.HashMapFeedInfoCache;
+import com.sun.syndication.fetcher.impl.HttpURLFeedFetcher;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
@@ -35,16 +41,26 @@ public class FeedParser {
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<FeedEntry> parser(String url) {
-
 		SyndFeedInput input = new SyndFeedInput();
 		HtmlUtils htmlUtils = new HtmlUtils();
 		HttpHeadersAnalysis hha = new HttpHeadersAnalysis();
 		InsertAndUpdateOpsInterface dsfmd = new InsertAndUpdateMongoDb();
 		GenUtils genUtils = new GenUtils();
 		List<FeedEntry> feedList = new ArrayList<FeedEntry>();// ;Collections.synchronizedList(new ArrayList<FeedEntry>());
+		System.out.println("Parsing URL: "+url +" at "+Calendar.getInstance().getTime());
 		try {
 			URL feedUrl = new URL(url);
-			SyndFeed feed = input.build(new XmlReader(feedUrl));
+			FeedFetcherCache feedInfoCache = HashMapFeedInfoCache.getInstance();
+			FeedFetcher fetcher = new HttpURLFeedFetcher(feedInfoCache);
+			SyndFeed feed = fetcher.retrieveFeed(feedUrl);			
+			//URLConnection uc = feedUrl.openConnection();
+			
+			//uc.setConnectTimeout(120000);
+			//System.out.println("before XmlReader");
+			
+			//SyndFeed feed = input.build(new XmlReader(uc));
+			
+			//System.out.println("after XmlReader");
 			
 			String feedSourceTitle = feed.getTitle();
 			List<SyndEntry> feedEntries = feed.getEntries();
@@ -79,7 +95,7 @@ public class FeedParser {
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println("ERROR: " + ex.getMessage());
+			System.out.println("ERROR: " + ex.getMessage()+" in " +url);
 		}
 		return (ArrayList<FeedEntry>) feedList;
 	}

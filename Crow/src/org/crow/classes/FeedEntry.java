@@ -1,12 +1,13 @@
 package org.crow.classes;
 
 import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndEntryImpl;
 
 /**
  * @author viksin
  *
  */
-public class FeedEntry {
+public class FeedEntry{
 	
 
 	private String feedHashid;

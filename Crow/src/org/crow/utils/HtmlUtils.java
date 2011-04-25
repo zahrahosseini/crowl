@@ -16,6 +16,9 @@ public class HtmlUtils {
 		String nohtml="";
 		try 
 		{
+		        html = html.replaceAll("<br>", " ");
+		        html = html.replaceAll("<br />", " ");
+	                html = html.replaceAll("<br/>", " ");
 			nohtml = html.replaceAll("\\<.*?>", "");
 			//nohtml = nohtml.replaceAll("&nbsp;", "");
 		} catch (Exception e) {

@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.crow.classes.FeedEntry;
 
+import com.mongodb.Mongo;
+
 
 /**
  * @author viksin
@@ -24,4 +26,13 @@ public interface InsertAndUpdateOpsInterface {
 	 * @return
 	 */
 	boolean insertFeeds(List<FeedEntry> feedList, String db, String collection);
+	/**
+	 * @param feedList
+	 * @param dbName
+	 * @param collection
+	 * @param m
+	 * @return
+	 */
+	boolean insertFeeds(List<FeedEntry> feedList, String dbName,
+			String collection, Mongo m);
 }
