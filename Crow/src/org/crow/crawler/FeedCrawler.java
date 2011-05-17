@@ -3,9 +3,12 @@
  */
 package org.crow.crawler;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 import org.crow.base.FeedParser;
@@ -23,73 +26,55 @@ import com.mongodb.MongoException;
  *
  */
 public class FeedCrawler implements ICrawler {
-
-	/* (non-Javadoc)
-	 * @see org.crow.crawler.ICrawler#feedCrawler()
-	 */
-	@Override
-	public void feedCrawler(String mode) {
-		if(mode.equalsIgnoreCase("fing"))
-		{
-			fingCrawler();
-		}
-	}
 	
-	private void fingCrawler()
-	{
-		//TODO logic of db call should be moved to starting point (e.g. main method)
-		String dataColumn="feedurl";
-		String sqlQuery="select "+dataColumn+" from fingfeedurls";
-		Query query = new Query();
-		query.setStatement(sqlQuery);
-		query.setSelectColumn(dataColumn);
-		DBUtils dbu = new DBUtils();
-		ArrayList<String> feedUrls =dbu.getAllUrls(query);
-		Crawler crawler = new Crawler();
-		crawler.setUrls(feedUrls);
-		FeedParser feedParser = new FeedParser();
-		InsertAndUpdateMongoDb insert = new InsertAndUpdateMongoDb();
-		boolean success=false;
-		Mongo m = null;
-		try {
-			m = new Mongo(Constants.MongoDBServer,Constants.MongoDBServerPort);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		while(true){
-			for(String s : crawler.getUrls())
-			{
-				List<FeedEntry> feedList = feedParser.parser(s);
-				success=insert.insertFeeds(feedList, "feeds", "fing",m);
-				//System.out.println(success);
-			}
-		}
-	}
+    /* (non-Javadoc)
+     * @see org.crow.crawler.ICrawler#crawlSingleUrl(java.net.URL)
+     */
+    @Override
+    public List<FeedEntry> crawlSingleUrl(URL url)
+    {
+        FeedParser feedParser = new FeedParser();
+        List<FeedEntry> feedList = feedParser.parser(url);
+        return feedList;
+        
+    }
 
-	/* (non-Javadoc)
-	 * @see org.crow.crawler.ICrawler#docCrawler()
-	 */
-	@Override
-	public void docCrawler() {
-		// TODO Auto-generated method stub
-		
-	}
+    /* (non-Javadoc)
+     * @see org.crow.crawler.ICrawler#crawlUrls(java.util.List)
+     */
+    @Override
+    public ConcurrentHashMap<URL, List<FeedEntry>> crawlUrls(List<URL> urls)
+    {
+        ConcurrentHashMap<URL, List<FeedEntry>> urlFeedHashMap = new ConcurrentHashMap<URL, List<FeedEntry>>();
+        for(URL url : urls)
+        {    
+            List <FeedEntry> feedList = crawlSingleUrl(url);
+            urlFeedHashMap.put(url, feedList);
+        }
+        return urlFeedHashMap;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.crow.crawler.ICrawler#generalCrawler()
-	 */
-	@Override
-	public void generalCrawler() {
-		// TODO Auto-generated method stub
-		
-	}
+    /* (non-Javadoc)
+     * @see org.crow.crawler.ICrawler#crawlUrls(java.util.ArrayList)
+     */
+    @Override
+    public ConcurrentHashMap<String, List<FeedEntry>> crawlUrls(
+            ArrayList<String> urls)
+    {
+        ConcurrentHashMap<String, List<FeedEntry>> urlFeedHashMap = new ConcurrentHashMap<String, List<FeedEntry>>();
+        for(String str : urls)
+        {   URL url = null;
+        try {
+            url = new URL(str);
+        }
+        catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+            List <FeedEntry> feedList = crawlSingleUrl(url);
+            urlFeedHashMap.put(str, feedList);
+        }
+        return urlFeedHashMap;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.crow.crawler.ICrawler#imageCrawler()
-	 */
-	@Override
-	public void imageCrawler() {
-		// TODO Auto-generated method stub
-		
-	}
 }

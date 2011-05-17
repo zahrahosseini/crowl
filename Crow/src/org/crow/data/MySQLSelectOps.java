@@ -68,18 +68,20 @@ public class MySQLSelectOps {
 		ArrayList<String> dataList=new ArrayList<String>();
 		Connection conn=null;
 		Statement stmt = null;
-        ResultSet rs = null;
+                ResultSet rs = null;
 		try {
 			Class.forName(SqlConnections.MySQLDriver).newInstance();
 			conn = DriverManager.getConnection(SqlConnections.LocalMySQLHost,
 					SqlConnections.Username, SqlConnections.Password);
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(selQuery);
-			while (rs.next()) {
-					dataList.add(rs.getString(colName));
+			while (rs.next()) 
+			{
+			    dataList.add(rs.getString(colName));
 			}
 				
-		} catch (Exception ex) {
+		} 
+		catch (Exception ex) {
         } finally {
             if (rs != null) {
                 try {
