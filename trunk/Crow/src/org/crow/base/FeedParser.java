@@ -40,16 +40,15 @@ import com.sun.syndication.io.XmlReader;
 public class FeedParser {
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<FeedEntry> parser(String url) {
+	public ArrayList<FeedEntry> parser(URL feedUrl) {
 		SyndFeedInput input = new SyndFeedInput();
 		HtmlUtils htmlUtils = new HtmlUtils();
 		HttpHeadersAnalysis hha = new HttpHeadersAnalysis();
 		InsertAndUpdateOpsInterface dsfmd = new InsertAndUpdateMongoDb();
 		GenUtils genUtils = new GenUtils();
 		List<FeedEntry> feedList = new ArrayList<FeedEntry>();// ;Collections.synchronizedList(new ArrayList<FeedEntry>());
-		System.out.println("Parsing URL: "+url +" at "+Calendar.getInstance().getTime());
+		System.out.println("Parsing URL: "+feedUrl.toString() +" at "+Calendar.getInstance().getTime());
 		try {
-			URL feedUrl = new URL(url);
 			FeedFetcherCache feedInfoCache = HashMapFeedInfoCache.getInstance();
 			FeedFetcher fetcher = new HttpURLFeedFetcher(feedInfoCache);
 			SyndFeed feed = fetcher.retrieveFeed(feedUrl);			
@@ -95,7 +94,7 @@ public class FeedParser {
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println("ERROR: " + ex.getMessage()+" in " +url);
+			System.out.println("ERROR: " + ex.getMessage()+" in " +feedUrl.toString());
 		}
 		return (ArrayList<FeedEntry>) feedList;
 	}

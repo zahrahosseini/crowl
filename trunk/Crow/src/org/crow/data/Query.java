@@ -20,7 +20,7 @@ public class Query {
 	private String mongoDB;
 	private String mongoCollection;
 	/**
-	 * @param type set type as "select","update","delete","insert"
+	 * @param type: set type as "select","update","delete","insert"
 	 */
 	public void setType(String queryType) {
 		this.type = queryType;
