@@ -10,15 +10,16 @@ Crowl 0.1 has following features:
   * Gives Image url in a feed
 
 = Usage =
-Following 
+Following code snippet parses a single rss feed:
 {{{
-public static void main(String[] args) throws IOException {
+ public static void main(String[] args) throws IOException {
         ICrawler crawler = new FeedCrawler();
         try {
             List<FeedEntry> lis =crawler.crawlSingleUrl(new URL("http://feeds.feedburner.com/basho/knDR"));
             for(FeedEntry fe: lis)
-            {
-                System.out.println(fe.getNoHtmlContent());
+            {                
+                SyndEntry se = fe.getFeedEntry();                            
+                System.out.println("Title: "+se.getTitle()+"\n"+"Content: "+fe.getNoHtmlContent()+"\n"+"Image URL: "+fe.getFeedImageUrl());
             }
     }
     catch (Exception e) {
@@ -26,7 +27,7 @@ public static void main(String[] args) throws IOException {
     }
     }
 }}}
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
+SyndEntry is a [http://java.net/projects/rome ROME] interface and contains main information related to a feed entry. More detail can be found here:
+
+[http://java.net/projects/rome/sources/svn/content/trunk/src/java/com/sun/syndication/feed/synd/SyndEntry.java?rev=840 SyndEntry]
