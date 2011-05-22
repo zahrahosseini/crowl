@@ -1,0 +1,32 @@
+= Introduction =
+
+At Present Crowl can only crawl RSS and ATOM feeds. 0.1 is the minimalist version of Crowl , it does not have any distributed capabilities. Also it is lacking any good machine learning functionality. 
+
+Crowl 0.1 has following features:
+
+  * It can crawl a single feed url e.g. "http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&output=rss"
+  * It can crawl a collection of feed urls passed as List of URL
+  * Gives HTML free content of a feed entry.
+  * Gives Image url in a feed
+
+= Usage =
+Following 
+{{{
+public static void main(String[] args) throws IOException {
+        ICrawler crawler = new FeedCrawler();
+        try {
+            List<FeedEntry> lis =crawler.crawlSingleUrl(new URL("http://feeds.feedburner.com/basho/knDR"));
+            for(FeedEntry fe: lis)
+            {
+                System.out.println(fe.getNoHtmlContent());
+            }
+    }
+    catch (Exception e) {
+        e.printStackTrace();
+    }
+    }
+}}}
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
