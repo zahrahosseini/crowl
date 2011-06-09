@@ -89,7 +89,7 @@ public class FeedParser {
 				//fe.setLastModDateOnServer(httpHeaders.getLastModified());
 				fe.setFeedGetDateTime(genUtils.getCurrentDateTime("yyyy-MM-dd HH:mm:ss"));
 				fe.setFeedHashid(genUtils.generateSHAHashId(se.getLink()));
-				feedList.add(fe);
+				feedList.add(fe); 
 			}
 			
 		} catch (Exception ex) {

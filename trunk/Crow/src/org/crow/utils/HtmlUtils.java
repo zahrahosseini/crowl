@@ -3,6 +3,7 @@
  */
 package org.crow.utils;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,8 +28,9 @@ public class HtmlUtils {
 		return nohtml;
 	}
 	
-	public String findImageUrl(String feedContent)
+	public ArrayList<String> findImageUrl(String feedContent)
 	{
+	        ArrayList<String> imageUrls= new ArrayList<String>();
 		String imageUrl="";
 		String imageTagRegex="<img.*?>";
 		String srcRegex="src=\".*?\"";
@@ -39,10 +41,11 @@ public class HtmlUtils {
 			Matcher m = pSrc.matcher(matcher.group()); 
 			while (m.find()) {			
 				imageUrl = m.group();
-				imageUrl= imageUrl.substring(4, imageUrl.length());			
+				imageUrl = imageUrl.substring(4, imageUrl.length());
+				imageUrls.add(imageUrl);
 			}
         }
-		return imageUrl;
+		return imageUrls;
 	}
 
 }
