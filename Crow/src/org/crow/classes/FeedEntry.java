@@ -1,5 +1,7 @@
 package org.crow.classes;
 
+import java.util.ArrayList;
+
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 
@@ -12,7 +14,7 @@ public class FeedEntry{
 
 	private String feedHashid;
 	private String lastModDateOnServer;
-	private String feedImageUrl;
+	private ArrayList<String> feedImageUrl;
 	private SyndEntry feedEntry;
 	private String noHtmlContent;
 	private String feedGetDateTime;
@@ -42,18 +44,8 @@ public class FeedEntry{
 	public String getLastModDateOnServer() {
 		return lastModDateOnServer;
 	}
-	/**
-	 * @param feedImageUrl the feedImageUrl to set
-	 */
-	public void setFeedImageUrl(String feedImageUrl) {
-		this.feedImageUrl = feedImageUrl;
-	}
-	/**
-	 * @return the feedImageUrl
-	 */
-	public String getFeedImageUrl() {
-		return feedImageUrl;
-	}
+	
+	
 	/**
 	 * @param feedEntry the feedEntry to set
 	 */
@@ -114,5 +106,19 @@ public class FeedEntry{
 	public String getSourceLink() {
 		return sourceLink;
 	}
+    /**
+     * @param feedImageUrl the feedImageUrl to set
+     */
+    public void setFeedImageUrl(ArrayList<String> feedImageUrl)
+    {
+        this.feedImageUrl = feedImageUrl;
+    }
+    /**
+     * @return the feedImageUrl
+     */
+    public ArrayList<String> getFeedImageUrl()
+    {
+        return feedImageUrl;
+    }
 
 }

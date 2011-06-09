@@ -58,8 +58,7 @@ public class FeedCrawler implements ICrawler {
      * @see org.crow.crawler.ICrawler#crawlUrls(java.util.ArrayList)
      */
     @Override
-    public ConcurrentHashMap<String, List<FeedEntry>> crawlUrls(
-            ArrayList<String> urls)
+    public ConcurrentHashMap<String, List<FeedEntry>> crawlUrls(ArrayList<String> urls)
     {
         ConcurrentHashMap<String, List<FeedEntry>> urlFeedHashMap = new ConcurrentHashMap<String, List<FeedEntry>>();
         for(String str : urls)
