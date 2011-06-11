@@ -8,8 +8,13 @@ import java.awt.Container;
 import java.awt.Image;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.awt.image.renderable.RenderableImage;
 import java.io.FileOutputStream;
+import java.io.IOException;
+
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
@@ -17,7 +22,9 @@ import java.io.*;
 import java.awt.Toolkit;
 import java.awt.MediaTracker;
 
-public class ImageThumbs
+import javax.imageio.ImageIO;
+
+public class ImageThumbs implements ImageObserver
 {
 
     public void createThumbnail(String imgFilePath, String thumbPath,int thumbWidth, int thumbHeight) throws Exception
@@ -52,5 +59,26 @@ public class ImageThumbs
         encoder.setJPEGEncodeParam(param);
         encoder.encode(thumbImage);
         out.close();
+    }
+    
+    public void rescaleImage(String srcFile,String destFile,int destWidth, int destHeight) throws IOException
+    {
+        BufferedImage srcImage = ImageIO.read(new File(srcFile));
+        BufferedImage destImage = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = destImage.createGraphics();
+        AffineTransform aft = AffineTransform.getScaleInstance((double)destWidth/srcImage.getWidth(),(double)destHeight/srcImage.getHeight());
+        g2d.drawImage(srcImage, aft,this);
+        ImageIO.write(destImage, "JPG",new File(destFile));
+    }
+
+    /* (non-Javadoc)
+     * @see java.awt.image.ImageObserver#imageUpdate(java.awt.Image, int, int, int, int, int)
+     */
+    @Override
+    public boolean imageUpdate(Image img, int infoflags, int x, int y,
+            int width, int height)
+    {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

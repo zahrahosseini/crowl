@@ -78,12 +78,12 @@ public class FeedParser {
 		                sbuff.append(content.getValue());
 		            }
 		            fe.setNoHtmlContent(htmlUtils.removeHtmlTags(sbuff.toString()));
-					fe.setFeedImageUrl(htmlUtils.findImageUrl(sbuff.toString()));
+					fe.setFeedImageUrls(htmlUtils.findImageUrl(sbuff.toString()));
 				}
 				else if(se.getDescription()!=null)
 				{
 					fe.setNoHtmlContent(htmlUtils.removeHtmlTags(se.getDescription().getValue()));
-					fe.setFeedImageUrl(htmlUtils.findImageUrl(se.getDescription().getValue()));
+					fe.setFeedImageUrls(htmlUtils.findImageUrl(se.getDescription().getValue()));
 				}
 				
 				//fe.setLastModDateOnServer(httpHeaders.getLastModified());

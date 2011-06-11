@@ -14,7 +14,7 @@ public class FeedEntry{
 
 	private String feedHashid;
 	private String lastModDateOnServer;
-	private ArrayList<String> feedImageUrl;
+	private ArrayList<String> feedImageUrls;
 	private SyndEntry feedEntry;
 	private String noHtmlContent;
 	private String feedGetDateTime;
@@ -109,16 +109,16 @@ public class FeedEntry{
     /**
      * @param feedImageUrl the feedImageUrl to set
      */
-    public void setFeedImageUrl(ArrayList<String> feedImageUrl)
+    public void setFeedImageUrls(ArrayList<String> feedImageUrls)
     {
-        this.feedImageUrl = feedImageUrl;
+        this.feedImageUrls = feedImageUrls;
     }
     /**
      * @return the feedImageUrl
      */
-    public ArrayList<String> getFeedImageUrl()
+    public ArrayList<String> getFeedImageUrls()
     {
-        return feedImageUrl;
+        return feedImageUrls;
     }
 
 }

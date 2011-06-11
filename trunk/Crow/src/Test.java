@@ -51,13 +51,19 @@ public class Test {
 	    ImageThumbs it = new ImageThumbs();
 	    try {
 	        List<FeedEntry> lis =crawler.crawlSingleUrl(new URL("http://feeds2.feedburner.com/webresourcesdepot"));
+	        FileOps fo = new FileOps();
 	        for(FeedEntry fe: lis)
 	        {
-	            System.out.println(fe.getNoHtmlContent());
+	            int k=0;
+	            ArrayList<String> a = fe.getFeedImageUrls();
+	            for(String s:a)
+	            {
+	                fo.downloadFile(s);
+	                it.createThumbnail("C:\\temp\\img.jpg","C:\\temp\\"+fe.getFeedHashid()+"_"+k+".jpg", 100, 85);
+	                k++;
+	            }
 	        }
-	        //FileOps fo = new FileOps();
-	        //fo.downloadFile("http://www.ndtvmovies.com/images/showbiz/paris-hilton1.jpg");
-                //it.createThumbnail("C:\\temp\\img.jpg", "C:\\temp\\p\\Connection.jpg", 150, 120);
+	        
         }
         catch (Exception e) {
             e.printStackTrace();
