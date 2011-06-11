@@ -42,6 +42,7 @@ public class HtmlUtils {
 			while (m.find()) {			
 				imageUrl = m.group();
 				imageUrl = imageUrl.substring(4, imageUrl.length());
+				imageUrl=imageUrl.replaceAll("\"", "");
 				imageUrls.add(imageUrl);
 			}
         }

@@ -134,7 +134,7 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 				feedData.put("updatedate", entry.getUpdatedDate().toString());
 				}
 				feedData.put("nohtmlcontent", fe.getNoHtmlContent());
-				feedData.put("imageurl", fe.getFeedImageUrl());
+				feedData.put("imageurl", fe.getFeedImageUrls());
 				feed.put("feeddata", feedData);
 				WriteResult insertResult= coll.insert(feed);
 				//DBCursor cur = coll.find();
