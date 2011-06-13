@@ -50,20 +50,8 @@ public class Test {
             
 	    ImageThumbs it = new ImageThumbs();
 	    try {
-	        List<FeedEntry> lis =crawler.crawlSingleUrl(new URL("http://feeds2.feedburner.com/webresourcesdepot"));
-	        FileOps fo = new FileOps();
-	        for(FeedEntry fe: lis)
-	        {
-	            int k=0;
-	            ArrayList<String> a = fe.getFeedImageUrls();
-	            for(String s:a)
-	            {
-	                fo.downloadFile(s);
-	                it.createThumbnail("C:\\temp\\img.jpg","C:\\temp\\"+fe.getFeedHashid()+"_"+k+".jpg", 100, 85);
-	                k++;
-	            }
-	        }
-	        
+	        crawler.crawlSingleUrl(new URL("http://feeds2.feedburner.com/webresourcesdepot"));
+	       
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -19,8 +19,10 @@ import org.crow.classes.FeedEntry;
 import org.crow.classes.HttpHeaders;
 import org.crow.data.*;
 import org.crow.httpOps.HttpHeadersAnalysis;
+import org.crow.utils.FileOps;
 import org.crow.utils.GenUtils;
 import org.crow.utils.HtmlUtils;
+import org.crow.utils.ImageThumbs;
 
 import com.sun.syndication.feed.synd.SyndCategory;
 import com.sun.syndication.feed.synd.SyndContent;
@@ -60,37 +62,46 @@ public class FeedParser {
 			//SyndFeed feed = input.build(new XmlReader(uc));
 			
 			//System.out.println("after XmlReader");
-			
+			FileOps fo = new FileOps();
+		        ImageThumbs it = new ImageThumbs();
 			String feedSourceTitle = feed.getTitle();
 			List<SyndEntry> feedEntries = feed.getEntries();
-			for (SyndEntry se : feedEntries) {
-				//HttpHeaders httpHeaders = hha.getHttpHeaders(new URL(se.getLink().toString()));
-				FeedEntry fe = new FeedEntry();
-				fe.setSourceLink(feedUrl.toString());
-				fe.setSourceTitle(feedSourceTitle);
-				fe.setFeedEntry(se);
-				if(se.getContents().size()>0)
-				{
-					StringBuffer sbuff = new StringBuffer();
-					Iterator contents = se.getContents().iterator();
-		            while (contents.hasNext()) {
-		                SyndContent content = (SyndContent)contents.next();
-		                sbuff.append(content.getValue());
-		            }
-		            fe.setNoHtmlContent(htmlUtils.removeHtmlTags(sbuff.toString()));
-					fe.setFeedImageUrls(htmlUtils.findImageUrl(sbuff.toString()));
-				}
-				else if(se.getDescription()!=null)
-				{
-					fe.setNoHtmlContent(htmlUtils.removeHtmlTags(se.getDescription().getValue()));
-					fe.setFeedImageUrls(htmlUtils.findImageUrl(se.getDescription().getValue()));
-				}
-				
-				//fe.setLastModDateOnServer(httpHeaders.getLastModified());
-				fe.setFeedGetDateTime(genUtils.getCurrentDateTime("yyyy-MM-dd HH:mm:ss"));
-				fe.setFeedHashid(genUtils.generateSHAHashId(se.getLink()));
-				feedList.add(fe); 
-			}
+                        for (SyndEntry se : feedEntries) {
+                            // HttpHeaders httpHeaders = hha.getHttpHeaders(new
+                            // URL(se.getLink().toString()));
+                            FeedEntry fe = new FeedEntry();
+                            fe.setSourceLink(feedUrl.toString());
+                            fe.setSourceTitle(feedSourceTitle);
+                            fe.setFeedEntry(se);
+                            if (se.getContents().size() > 0) {
+                                StringBuffer sbuff = new StringBuffer();
+                                Iterator contents = se.getContents().iterator();
+                                while (contents.hasNext()) {
+                                    SyndContent content = (SyndContent) contents.next();
+                                    sbuff.append(content.getValue());
+                                }
+                                fe.setNoHtmlContent(htmlUtils.removeHtmlTags(sbuff.toString()));
+                                fe.setFeedImageUrls(htmlUtils.findImageUrl(sbuff.toString()));
+                            }
+                            else if (se.getDescription() != null) {
+                                fe.setNoHtmlContent(htmlUtils.removeHtmlTags(se.getDescription().getValue()));
+                                fe.setFeedImageUrls(htmlUtils.findImageUrl(se.getDescription().getValue()));
+                            }
+            
+                            // fe.setLastModDateOnServer(httpHeaders.getLastModified());
+                            fe.setFeedGetDateTime(genUtils.getCurrentDateTime("yyyy-MM-dd HH:mm:ss"));
+                            fe.setFeedHashid(genUtils.generateSHAHashId(se.getLink()));
+                            //Store Image Thumb nails locally
+                            int k=0;
+                            for(String s:fe.getFeedImageUrls())
+                            {
+                                fo.downloadFile(s);
+                                //TODO get paths and image dimensions from .properties file
+                                it.createThumbnail(genUtils.getPropertyValue("imagethumbslocation")+"img.jpg",genUtils.getPropertyValue("imagethumbslocation")+fe.getFeedHashid()+"_"+k+".jpg", 100, 85);
+                                k++;
+                            }
+                            feedList.add(fe);
+                        }
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();

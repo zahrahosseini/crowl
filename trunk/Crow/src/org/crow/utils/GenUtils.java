@@ -3,10 +3,13 @@
  */
 package org.crow.utils;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Properties;
 
 /**
  * @author viksin
@@ -48,5 +51,19 @@ public class GenUtils {
 	public void serializeObject(Object obj)
 	{
 	    
+	}
+	
+	public String getPropertyValue(String key)
+	{
+	           Properties prop = new Properties();
+	           String propertyValue=null;
+	           try {
+	                   prop.load(new FileInputStream("config.properties"));	    
+	                   propertyValue= prop.getProperty(key);
+	    
+	           } catch (IOException ex) {
+	                   ex.printStackTrace();
+	           }
+	    return propertyValue;
 	}
 }
