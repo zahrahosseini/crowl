@@ -51,6 +51,7 @@ public class ImageThumbs implements ImageObserver
         graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_SPEED);
         graphics2D.drawImage(scaleImg, 0, 0, null);
         graphics2D.dispose();
+        
         BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(thumbPath));
         JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
         JPEGEncodeParam param = encoder.getDefaultJPEGEncodeParam(thumbImage);
