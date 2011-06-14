@@ -97,7 +97,7 @@ public class FeedParser {
                             {
                                 fo.downloadFile(s);
                                 //TODO get paths and image dimensions from .properties file
-                                it.createThumbnail(genUtils.getPropertyValue("imagethumbslocation")+"img.jpg",genUtils.getPropertyValue("imagethumbslocation")+fe.getFeedHashid()+"_"+k+".jpg", 100, 85);
+                                it.createThumbnail(genUtils.getPropertyValue("imagethumbslocation")+"img.jpg",genUtils.getPropertyValue("imagethumbslocation")+fe.getFeedHashid()+"_"+k+".jpg", genUtils.getPropertyValue("imageWidth"), genUtils.getPropertyValue("imageHeight"));
                                 k++;
                             }
                             feedList.add(fe);
