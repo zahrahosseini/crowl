@@ -46,9 +46,11 @@ public class FeedParser {
 		SyndFeedInput input = new SyndFeedInput();
 		HtmlUtils htmlUtils = new HtmlUtils();
 		HttpHeadersAnalysis hha = new HttpHeadersAnalysis();
-		InsertAndUpdateOpsInterface dsfmd = new InsertAndUpdateMongoDb();
 		GenUtils genUtils = new GenUtils();
 		List<FeedEntry> feedList = new ArrayList<FeedEntry>();// ;Collections.synchronizedList(new ArrayList<FeedEntry>());
+		String imageThumbsStoragePath=genUtils.getPropertyValue("imagethumbslocation");
+		String imageThumbWidth=genUtils.getPropertyValue("imageWidth");
+		String imageThumbHeight=genUtils.getPropertyValue("imageHeight");
 		System.out.println("Parsing URL: "+feedUrl.toString() +" at "+Calendar.getInstance().getTime());
 		try {
 			FeedFetcherCache feedInfoCache = HashMapFeedInfoCache.getInstance();
@@ -96,8 +98,7 @@ public class FeedParser {
                             for(String s:fe.getFeedImageUrls())
                             {
                                 fo.downloadFile(s);
-                                //TODO get paths and image dimensions from .properties file
-                                it.createThumbnail(genUtils.getPropertyValue("imagethumbslocation")+"img.jpg",genUtils.getPropertyValue("imagethumbslocation")+fe.getFeedHashid()+"_"+k+".jpg", genUtils.getPropertyValue("imageWidth"), genUtils.getPropertyValue("imageHeight"));
+                                it.createThumbnail(imageThumbsStoragePath+"img.jpg",imageThumbsStoragePath+fe.getFeedHashid()+"_"+k+".jpg", Integer.parseInt(imageThumbWidth), Integer.parseInt(imageThumbHeight));
                                 k++;
                             }
                             feedList.add(fe);

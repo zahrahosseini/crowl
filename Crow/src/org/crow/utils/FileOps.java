@@ -19,7 +19,8 @@ public class FileOps {
 	public void downloadFile(String fileUrl) {
 		try {
 			BufferedInputStream in = new BufferedInputStream(new URL(fileUrl).openStream());
-			FileOutputStream fos = new FileOutputStream(Constants.TempImageDir+"/img.jpg");
+	                GenUtils genUtils = new GenUtils();
+	                FileOutputStream fos = new FileOutputStream(genUtils.getPropertyValue("imagethumbslocation")+"/img.jpg");
 			BufferedOutputStream bout = new BufferedOutputStream(fos, 1024);
 			byte[] data = new byte[1024];
 			int x = 0;
