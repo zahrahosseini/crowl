@@ -31,6 +31,7 @@ import com.mongodb.MongoException;
 import com.mongodb.util.JSON;
 
 import org.crow.utils.Constants;
+import org.crow.utils.GenUtils;
 import org.crow.utils.ImageThumbs;
 import org.crow.utils.FileOps;
 /**
@@ -45,17 +46,7 @@ public class Test {
 	 */
 	public static void main(String[] args) throws IOException {
 	    Test test = new Test();
-	    //test.fingCrawler();
-	    ICrawler crawler = new FeedCrawler();
-            
-	    ImageThumbs it = new ImageThumbs();
-	    try {
-	        crawler.crawlSingleUrl(new URL("http://feeds2.feedburner.com/webresourcesdepot"));
-	       
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+	    test.fingCrawler();
 	}
 	private void fingCrawler()
         {
@@ -65,13 +56,14 @@ public class Test {
                 query.setStatement(sqlQuery);
                 query.setSelectColumn(dataColumn);
                 DBUtils dbu = new DBUtils();
+                GenUtils genUtils = new GenUtils();
                 ArrayList<String> feedUrls =dbu.getAllUrls(query);
                 InsertAndUpdateMongoDb insert = new InsertAndUpdateMongoDb();
                 boolean success=false;
                 ICrawler crawler = new FeedCrawler();
                 Mongo m = null;
                 try {
-                        m = new Mongo(Constants.MongoDBServer,Constants.MongoDBServerPort);
+                        m = new Mongo(genUtils.getPropertyValue("mongoDbServerIP"),Integer.parseInt(genUtils.getPropertyValue("mongoDbServerPort")));
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
