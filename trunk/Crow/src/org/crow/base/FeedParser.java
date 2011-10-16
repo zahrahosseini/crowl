@@ -93,14 +93,17 @@ public class FeedParser {
                             // fe.setLastModDateOnServer(httpHeaders.getLastModified());
                             fe.setFeedGetDateTime(genUtils.getCurrentDateTime("yyyy-MM-dd HH:mm:ss"));
                             fe.setFeedHashid(genUtils.generateSHAHashId(se.getLink()));
+                            fe.setCompleteContent(htmlUtils.getCompleteContentFromURL(se.getLink()));
                             //Store Image Thumb nails locally
-                            int k=0;
+                            //TODO : 121 = A fix is needed for smoothing the thumbnail creation, it is heavy right now
+                            /*The method of rescaling the image is heavy and slow, 100% CPU utilization
+                             * int k=0;
                             for(String s:fe.getFeedImageUrls())
                             {
                                 fo.downloadFile(s);
                                 it.createThumbnail(imageThumbsStoragePath+"img.jpg",imageThumbsStoragePath+fe.getFeedHashid()+"_"+k+".jpg", Integer.parseInt(imageThumbWidth), Integer.parseInt(imageThumbHeight));
                                 k++;
-                            }
+                            }*/
                             feedList.add(fe);
                         }
 			

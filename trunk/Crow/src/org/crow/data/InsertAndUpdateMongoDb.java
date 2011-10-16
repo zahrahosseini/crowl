@@ -134,7 +134,8 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 				feedData.put("updatedate", entry.getUpdatedDate().toString());
 				}
 				feedData.put("nohtmlcontent", fe.getNoHtmlContent());
-				feedData.put("imagecount", fe.getFeedImageUrls().size());
+				//TODO uncomment the below line after the fix of TODO 121 in FeedParser class
+				//feedData.put("imagecount", fe.getFeedImageUrls().size());
 				feed.put("feeddata", feedData);
 				WriteResult insertResult= coll.insert(feed);
 				//DBCursor cur = coll.find();
@@ -148,7 +149,7 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
 		return false;
 	}
