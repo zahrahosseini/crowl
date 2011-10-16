@@ -20,6 +20,7 @@ public class FeedEntry{
 	private String feedGetDateTime;
 	private String sourceTitle;
 	private String sourceLink;
+	private String completeContent;
 	/**
 	 * @param feedHashid the feedHashid to set
 	 */
@@ -119,6 +120,20 @@ public class FeedEntry{
     public ArrayList<String> getFeedImageUrls()
     {
         return feedImageUrls;
+    }
+    /**
+     * @param completeContent the completeContent to set
+     */
+    public void setCompleteContent(String completeContent)
+    {
+        this.completeContent = completeContent;
+    }
+    /**
+     * @return the completeContent
+     */
+    public String getCompleteContent()
+    {
+        return completeContent;
     }
 
 }

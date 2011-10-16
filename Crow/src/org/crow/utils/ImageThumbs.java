@@ -27,13 +27,13 @@ import javax.imageio.ImageIO;
 public class ImageThumbs implements ImageObserver
 {
 
-    public void createThumbnail(String imgFilePath, String thumbPath,int thumbWidth, int thumbHeight) throws Exception
+    public void createThumbnail(String imgFilePath, String thumbPath,int thumbWidth, int thumbHeight)
     {
-
+        try {
         Image image = Toolkit.getDefaultToolkit().getImage(imgFilePath);
         MediaTracker mediaTracker = new MediaTracker(new Container());
         mediaTracker.addImage(image, 0);
-        mediaTracker.waitForID(0);
+        mediaTracker.waitForID(0);        
         double thumbRatio = (double) thumbWidth / (double) thumbHeight;
         int imageWidth = image.getWidth(null);
         int imageHeight = image.getHeight(null);
@@ -60,6 +60,11 @@ public class ImageThumbs implements ImageObserver
         encoder.setJPEGEncodeParam(param);
         encoder.encode(thumbImage);
         out.close();
+        }
+        catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
     public void rescaleImage(String srcFile,String destFile,int destWidth, int destHeight) throws IOException
