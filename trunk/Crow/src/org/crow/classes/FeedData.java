@@ -46,6 +46,10 @@ public class FeedData {
 	/**
 	 * 
 	 */
+	public String completecontent;
+        /**
+         * 
+         */
 	public FeedData() {
 	}
 }

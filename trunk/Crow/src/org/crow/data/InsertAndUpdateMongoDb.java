@@ -65,7 +65,6 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 	/* (non-Javadoc)
 	 * @see org.crow.data.InsertAndUpdateOpsInterface#insertFeeds(com.sun.syndication.feed.synd.SyndFeed)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean insertFeeds(List<FeedEntry> feedList,String dbName,String collection, Mongo m) {
 		try {
@@ -91,7 +90,7 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 					feedData.put("link", entry.getLink());
 				} 
 				else if (entry.getLinks().size() > 0) {
-					Iterator links = entry.getLinks().iterator();
+					Iterator<?> links = entry.getLinks().iterator();
 					while (links.hasNext()) {
 						SyndLink link = (SyndLink) links.next();
 						if (link.getRel().equals("alternate"))
@@ -101,7 +100,7 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 
 				if (entry.getContents().size() > 0) {
 					int i = 1;
-					Iterator contents = entry.getContents().iterator();
+					Iterator<?> contents = entry.getContents().iterator();
 					while (contents.hasNext()) {
 						SyndContent content = (SyndContent) contents.next();
 						feedData.put("description" + i, content.getValue());
@@ -123,7 +122,7 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 				}
 				String categories = "";
 				if (entry.getCategories().size() > 0) {
-					Iterator cats = entry.getCategories().iterator();
+					Iterator<?> cats = entry.getCategories().iterator();
 					while (cats.hasNext()) {
 						SyndCategory cat = (SyndCategory) cats.next();
 						categories += cat.getName() + ",";
@@ -134,6 +133,7 @@ public class InsertAndUpdateMongoDb implements InsertAndUpdateOpsInterface {
 				feedData.put("updatedate", entry.getUpdatedDate().toString());
 				}
 				feedData.put("nohtmlcontent", fe.getNoHtmlContent());
+				feedData.put("completecontent", fe.getCompleteContent());
 				//TODO uncomment the below line after the fix of TODO 121 in FeedParser class
 				//feedData.put("imagecount", fe.getFeedImageUrls().size());
 				feed.put("feeddata", feedData);
