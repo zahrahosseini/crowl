@@ -77,7 +77,7 @@ public class FeedParser {
                             fe.setFeedEntry(se);
                             if (se.getContents().size() > 0) {
                                 StringBuffer sbuff = new StringBuffer();
-                                Iterator contents = se.getContents().iterator();
+                                Iterator<?> contents = se.getContents().iterator();
                                 while (contents.hasNext()) {
                                     SyndContent content = (SyndContent) contents.next();
                                     sbuff.append(content.getValue());

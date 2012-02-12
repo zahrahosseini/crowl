@@ -39,7 +39,7 @@ public class UrlDetective {
 	private UrlBase urlBase = new UrlBase();
 	private FeedUrl feedUrl = new FeedUrl();
 
-	public void determineUrlType(String url) {
+	public UrlType determineUrlType(String url) {
 		String contentType = "";
 		ArrayList<String> urls = new ArrayList<String>();
 		HttpHeadersAnalysis httpHeaderAnalysis = new HttpHeadersAnalysis();
@@ -60,7 +60,8 @@ public class UrlDetective {
 			contentType = urlBase.getHeaders().getContentType();
 			if (contentType.contains("html")) {
 				utype = UrlType.HTML;
-			} else if (contentType.contains("xml")) {
+			} 
+			else if (contentType.contains("xml")) {
 				try {
 					SyndFeedInput input = new SyndFeedInput();
 					SyndFeed feed = input.build(new XmlReader(passedUrl));
@@ -75,7 +76,8 @@ public class UrlDetective {
 					utype = UrlType.NO_SYND_XML;
 					e.printStackTrace();
 				}
-			} else {
+			} 
+			else {
 				// TODO for images, plain text, different doc types etc.
 			}
 			if (isCrawlingAllowed && utype!=null) {
@@ -85,7 +87,7 @@ public class UrlDetective {
 				}
 				else if(utype.equals(UrlType.RSS)|| utype.equals(UrlType.ATOM))
 				{
-					// TODO send to FeedStore
+					// TODO send to FeedURLStore
 				}
 				else {
 					// TODO store the url in JunkLinks table
@@ -96,6 +98,7 @@ public class UrlDetective {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+        return utype;
 
 		// }
 	}
@@ -108,8 +111,7 @@ public class UrlDetective {
 		try {
 			urlRobot = new URL(strRobot);
 			InputStream urlRobotStream = urlRobot.openStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					urlRobotStream));
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlRobotStream));
 			Robotstxt robotstxt = new Robotstxt(br);
 			isCrawlingAllowed = robotstxt.isCrawlingAllowed();
 		} catch (Exception e) {
