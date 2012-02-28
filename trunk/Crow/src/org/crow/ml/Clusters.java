@@ -4,8 +4,6 @@
 package org.crow.ml;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -13,7 +11,11 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  */
 public class Clusters implements Serializable{
-	private ConcurrentHashMap <String,Cluster> clusterMap = new ConcurrentHashMap<String,Cluster>();	
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 125241081769068516L;
+    private ConcurrentHashMap <String,Cluster> clusterMap = new ConcurrentHashMap<String,Cluster>();	
 	
 	public void addCluster(Cluster cluster)
 	{

@@ -87,4 +87,12 @@ public class HtmlUtils {
 	        }
             return urlList; 
 	  }
+	public List<String> getURLsFromHTML(Document doc) throws IOException{
+            List<String> urlList = new ArrayList<String>();
+                Elements links = doc.select("a[href]");
+                for (Element link : links) {
+                    urlList.add(link.attr("abs:href"));
+                }
+            return urlList; 
+          }
 }
